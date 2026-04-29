@@ -27,12 +27,16 @@ This project does not include real API keys. It is intended for demo purposes.
 
 ## Screenshots
 
-<img src="screenshots/login.png" width="250">
-<img src="screenshots/filter.png" width="250">
-<img src="screenshots/map.png" width="250">
+<p align="center">
+  <img src="screenshots/login.png" width="250">
+  <img src="screenshots/filter.png" width="250">
+  <img src="screenshots/map.png" width="250">
+</p>
 
-<img src="screenshots/suggestion.png" width="250">
-<img src="screenshots/favorites.png" width="250">
+<p align="center">
+  <img src="screenshots/suggestion.png" width="250">
+  <img src="screenshots/favorites.png" width="250">
+</p>
 
 ## Architecture
 
