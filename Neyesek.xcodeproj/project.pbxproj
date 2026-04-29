@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0064F8AA2EF441640071750C /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 0064F8A92EF441640071750C /* Auth */; };
+		0064F8AC2EF441640071750C /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 0064F8AB2EF441640071750C /* Functions */; };
+		0064F8AE2EF441640071750C /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 0064F8AD2EF441640071750C /* PostgREST */; };
+		0064F8B02EF441640071750C /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 0064F8AF2EF441640071750C /* Realtime */; };
+		0064F8B22EF441640071750C /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 0064F8B12EF441640071750C /* Storage */; };
+		0064F8B92EF4424E0071750C /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 0064F8B82EF4424E0071750C /* Supabase */; };
+		EB97DDBA2FA0FB5B00E91784 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EB97DDB92FA0FB5B00E91784 /* GoogleSignIn */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0064F81F2EF439D20071750C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0064F8002EF439D00071750C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0064F8072EF439D00071750C;
+			remoteInfo = PinEatUIKit;
+		};
+		0064F8292EF439D20071750C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0064F8002EF439D00071750C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0064F8072EF439D00071750C;
+			remoteInfo = PinEatUIKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0064F8082EF439D00071750C /* Neyesek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neyesek.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0064F81E2EF439D20071750C /* NeyesekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeyesekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0064F8282EF439D20071750C /* NeyesekUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeyesekUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0064F8302EF439D20071750C /* Exceptions for "Neyesek" folder in "Neyesek" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0064F8072EF439D00071750C /* Neyesek */;
+		};
+		00DE756C2F4B66F5008082FD /* Exceptions for "Neyesek" folder in "NeyesekTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/FavoritePlace.swift,
+				Models/Place.swift,
+				Models/PlaceFilter.swift,
+				Models/UserLocation.swift,
+				States/ViewState.swift,
+				ViewModels/MapViewModel.swift,
+			);
+			target = 0064F81D2EF439D20071750C /* NeyesekTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0064F80A2EF439D00071750C /* Neyesek */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0064F8302EF439D20071750C /* Exceptions for "Neyesek" folder in "Neyesek" target */,
+				00DE756C2F4B66F5008082FD /* Exceptions for "Neyesek" folder in "NeyesekTests" target */,
+			);
+			path = Neyesek;
+			sourceTree = "<group>";
+		};
+		0064F8212EF439D20071750C /* NeyesekTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NeyesekTests;
+			sourceTree = "<group>";
+		};
+		0064F82B2EF439D20071750C /* NeyesekUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NeyesekUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0064F8052EF439D00071750C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0064F8AE2EF441640071750C /* PostgREST in Frameworks */,
+				0064F8AC2EF441640071750C /* Functions in Frameworks */,
+				0064F8B92EF4424E0071750C /* Supabase in Frameworks */,
+				0064F8AA2EF441640071750C /* Auth in Frameworks */,
+				0064F8B22EF441640071750C /* Storage in Frameworks */,
+				0064F8B02EF441640071750C /* Realtime in Frameworks */,
+				EB97DDBA2FA0FB5B00E91784 /* GoogleSignIn in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0064F81B2EF439D20071750C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0064F8252EF439D20071750C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0064F7FF2EF439D00071750C = {
+			isa = PBXGroup;
+			children = (
+				0064F80A2EF439D00071750C /* Neyesek */,
+				0064F8212EF439D20071750C /* NeyesekTests */,
+				0064F82B2EF439D20071750C /* NeyesekUITests */,
+				0064F8B72EF4424E0071750C /* Frameworks */,
+				0064F8092EF439D00071750C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0064F8092EF439D00071750C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0064F8082EF439D00071750C /* Neyesek.app */,
+				0064F81E2EF439D20071750C /* NeyesekTests.xctest */,
+				0064F8282EF439D20071750C /* NeyesekUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0064F8B72EF4424E0071750C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0064F8072EF439D00071750C /* Neyesek */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0064F8312EF439D20071750C /* Build configuration list for PBXNativeTarget "Neyesek" */;
+			buildPhases = (
+				0064F8042EF439D00071750C /* Sources */,
+				0064F8052EF439D00071750C /* Frameworks */,
+				0064F8062EF439D00071750C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0064F80A2EF439D00071750C /* Neyesek */,
+			);
+			name = Neyesek;
+			packageProductDependencies = (
+				0064F8A92EF441640071750C /* Auth */,
+				0064F8AB2EF441640071750C /* Functions */,
+				0064F8AD2EF441640071750C /* PostgREST */,
+				0064F8AF2EF441640071750C /* Realtime */,
+				0064F8B12EF441640071750C /* Storage */,
+				0064F8B82EF4424E0071750C /* Supabase */,
+				EB97DDB92FA0FB5B00E91784 /* GoogleSignIn */,
+			);
+			productName = PinEatUIKit;
+			productReference = 0064F8082EF439D00071750C /* Neyesek.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0064F81D2EF439D20071750C /* NeyesekTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0064F8362EF439D20071750C /* Build configuration list for PBXNativeTarget "NeyesekTests" */;
+			buildPhases = (
+				0064F81A2EF439D20071750C /* Sources */,
+				0064F81B2EF439D20071750C /* Frameworks */,
+				0064F81C2EF439D20071750C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0064F8202EF439D20071750C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0064F8212EF439D20071750C /* NeyesekTests */,
+			);
+			name = NeyesekTests;
+			packageProductDependencies = (
+			);
+			productName = PinEatUIKitTests;
+			productReference = 0064F81E2EF439D20071750C /* NeyesekTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0064F8272EF439D20071750C /* NeyesekUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0064F8392EF439D20071750C /* Build configuration list for PBXNativeTarget "NeyesekUITests" */;
+			buildPhases = (
+				0064F8242EF439D20071750C /* Sources */,
+				0064F8252EF439D20071750C /* Frameworks */,
+				0064F8262EF439D20071750C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0064F82A2EF439D20071750C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0064F82B2EF439D20071750C /* NeyesekUITests */,
+			);
+			name = NeyesekUITests;
+			packageProductDependencies = (
+			);
+			productName = PinEatUIKitUITests;
+			productReference = 0064F8282EF439D20071750C /* NeyesekUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0064F8002EF439D00071750C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					0064F8072EF439D00071750C = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					0064F81D2EF439D20071750C = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 0064F8072EF439D00071750C;
+					};
+					0064F8272EF439D20071750C = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 0064F8072EF439D00071750C;
+					};
+				};
+			};
+			buildConfigurationList = 0064F8032EF439D00071750C /* Build configuration list for PBXProject "Neyesek" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0064F7FF2EF439D00071750C;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				EB97DDB82FA0FA2300E91784 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0064F8092EF439D00071750C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0064F8072EF439D00071750C /* Neyesek */,
+				0064F81D2EF439D20071750C /* NeyesekTests */,
+				0064F8272EF439D20071750C /* NeyesekUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0064F8062EF439D00071750C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0064F81C2EF439D20071750C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0064F8262EF439D20071750C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0064F8042EF439D00071750C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0064F81A2EF439D20071750C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0064F8242EF439D20071750C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0064F8202EF439D20071750C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0064F8072EF439D00071750C /* Neyesek */;
+			targetProxy = 0064F81F2EF439D20071750C /* PBXContainerItemProxy */;
+		};
+		0064F82A2EF439D20071750C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0064F8072EF439D00071750C /* Neyesek */;
+			targetProxy = 0064F8292EF439D20071750C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0064F8322EF439D20071750C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Neyesek/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"Mekanları haritada gösterebilmemiz için konum izninize ihtiyacımız var.\"";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.farukdereci.neyesek;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0064F8332EF439D20071750C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Neyesek/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"Mekanları haritada gösterebilmemiz için konum izninize ihtiyacımız var.\"";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.farukdereci.neyesek;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0064F8342EF439D20071750C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0064F8352EF439D20071750C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0064F8372EF439D20071750C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.farukdereci.PinEatUIKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Neyesek.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Neyesek";
+			};
+			name = Debug;
+		};
+		0064F8382EF439D20071750C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.farukdereci.PinEatUIKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Neyesek.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Neyesek";
+			};
+			name = Release;
+		};
+		0064F83A2EF439D20071750C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.farukdereci.PinEatUIKitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PinEatUIKit;
+			};
+			name = Debug;
+		};
+		0064F83B2EF439D20071750C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q6K727HY3Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.farukdereci.PinEatUIKitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PinEatUIKit;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0064F8032EF439D00071750C /* Build configuration list for PBXProject "Neyesek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0064F8342EF439D20071750C /* Debug */,
+				0064F8352EF439D20071750C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0064F8312EF439D20071750C /* Build configuration list for PBXNativeTarget "Neyesek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0064F8322EF439D20071750C /* Debug */,
+				0064F8332EF439D20071750C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0064F8362EF439D20071750C /* Build configuration list for PBXNativeTarget "NeyesekTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0064F8372EF439D20071750C /* Debug */,
+				0064F8382EF439D20071750C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0064F8392EF439D20071750C /* Build configuration list for PBXNativeTarget "NeyesekUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0064F83A2EF439D20071750C /* Debug */,
+				0064F83B2EF439D20071750C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		EB97DDB82FA0FA2300E91784 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0064F8A92EF441640071750C /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		0064F8AB2EF441640071750C /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		0064F8AD2EF441640071750C /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		0064F8AF2EF441640071750C /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		0064F8B12EF441640071750C /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		0064F8B82EF4424E0071750C /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0064F8A82EF441640071750C /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		EB97DDB92FA0FB5B00E91784 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB97DDB82FA0FA2300E91784 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0064F8002EF439D00071750C /* Project object */;
+}
