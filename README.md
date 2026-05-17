@@ -6,24 +6,28 @@ The app uses Google Places API to fetch place data and Supabase to manage user d
 
 ## Features
 
-- List places based on user location  
-- Filter by category, price, rating, and distance  
-- Random place suggestion  
-- Add and remove favorites  
-- Show open / closed status  
-
+- Discover nearby restaurants
+- Category-based filtering
+- Filter by price, rating, and distance
+- Random place suggestion system
+- Favorite places support
+- Open / closed status display
+- Interactive map experience
+  
 ## Technologies
 
-- Swift  
-- UIKit  
-- MVVM architecture  
-- Google Places API  
-- Supabase  
-- CoreLocation  
+- Swift
+- UIKit
+- MVVM Architecture
+- MapKit
+- Google Places API
+- Supabase
+- CoreLocation
 
 ## Security
 
-This project does not include real API keys. It is intended for demo purposes.
+This project does not contain real API keys or sensitive credentials.
+Example configuration files are provided for demonstration purposes.
 
 ## Screenshots
 
