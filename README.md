@@ -29,6 +29,10 @@ The app uses Google Places API to fetch place data and Supabase to manage user d
 This project does not contain real API keys or sensitive credentials.
 Example configuration files are provided for demonstration purposes.
 
+## Architecture
+
+ViewController → ViewModel → Service → API
+
 ## Screenshots
 
 <p align="center">
@@ -41,7 +45,3 @@ Example configuration files are provided for demonstration purposes.
   <img src="screenshots/suggestion.png" width="250">
   <img src="screenshots/favorites.png" width="250">
 </p>
-
-## Architecture
-
-ViewController → ViewModel → Service → API
