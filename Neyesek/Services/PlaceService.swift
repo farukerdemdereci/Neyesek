@@ -30,10 +30,25 @@ final class PlaceService: PlaceServiceProtocol {
         let dtos = try await googleService.fetchPlaces(
             lat: userLocation.latitude,
             lng: userLocation.longitude,
-            category: filter.category
+            category: filter.category,
+            radius: filter.radius ?? 600,
+            price: filter.price
         )
 
-        return dtos.map { mapToPlace($0, filter: filter) }
+        var places = dtos.map { mapToPlace($0, filter: filter) }
+
+        if let minimumRating = filter.minRating {
+            places = places.filter { ($0.rating ?? 0) >= minimumRating }
+        }
+
+        if let maxPrice = filter.price {
+            places = places.filter { place in
+                guard let placePrice = place.price else { return false }
+                return placePrice <= maxPrice
+            }
+        }
+
+        return places
     }
 
     func fetchFavoritePlaceOpenStatus(

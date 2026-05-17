@@ -20,7 +20,9 @@ final class SupabasePlacesService {
     func fetchPlaces(
         lat: Double,
         lng: Double,
-        category: String?
+        category: String?,
+        radius: Int,
+        price: Int?
     ) async throws -> [PlacesDTO] {
 
         var components = URLComponents(string: baseURL)!
@@ -28,12 +30,16 @@ final class SupabasePlacesService {
         var queryItems: [URLQueryItem] = [
             URLQueryItem(name: "lat", value: "\(lat)"),
             URLQueryItem(name: "lng", value: "\(lng)"),
-            URLQueryItem(name: "radius", value: "600"),
+            URLQueryItem(name: "radius", value: "\(radius)"),
             URLQueryItem(name: "type", value: placeType(for: category))
         ]
 
         if let category {
             queryItems.append(URLQueryItem(name: "keyword", value: keyword(for: category)))
+        }
+        
+        if let price {
+            queryItems.append(URLQueryItem(name: "maxprice", value: "\(price)"))
         }
 
         components.queryItems = queryItems
@@ -41,6 +47,8 @@ final class SupabasePlacesService {
         guard let url = components.url else {
             throw NetworkError.badURL
         }
+
+        print("REQUEST URL:", url.absoluteString)
 
         var request = URLRequest(url: url)
 

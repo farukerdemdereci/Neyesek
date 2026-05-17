@@ -11,7 +11,7 @@ final class RequestLimiter {
     
     static let shared = RequestLimiter()
 
-    private let dailyLimit = 10
+    private let dailyLimit = 20
     private let countKey = "daily_google_request_count"
     private let dateKey = "daily_google_request_date"
 
