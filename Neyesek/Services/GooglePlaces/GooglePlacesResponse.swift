@@ -41,3 +41,11 @@ struct LocationDTO: Decodable {
     let lat: Double
     let lng: Double
 }
+
+struct OpeningHoursDTO: Decodable {
+    let openNow: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case openNow = "open_now"
+    }
+}

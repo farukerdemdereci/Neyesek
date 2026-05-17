@@ -44,7 +44,7 @@ final class FavoritesViewController: UIViewController {
     private let contentContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         view.layer.cornerRadius = 32
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.clipsToBounds = true
@@ -194,7 +194,7 @@ private extension FavoritesViewController {
         tableView.dataSource = self
         tableView.contentInset.top = 8
         tableView.contentInset.bottom = 110
-        tableView.scrollIndicatorInsets.bottom = 110
+        tableView.verticalScrollIndicatorInsets.bottom = 110
 
         searchField.delegate = self
     }
@@ -534,7 +534,27 @@ private extension FavoritesViewController {
 
         case .error(let error):
             setEmptyStateVisible(false)
-            showAlert(title: "Hata", message: error.localizedDescription)
+
+            if let networkError = error as? NetworkError {
+                switch networkError {
+                case .noInternet:
+                    showAlert(
+                        title: "İnternet Bağlantısı Yok",
+                        message: "Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
+                    )
+
+                default:
+                    showAlert(
+                        title: "Hata",
+                        message: error.localizedDescription
+                    )
+                }
+            } else {
+                showAlert(
+                    title: "Hata",
+                    message: error.localizedDescription
+                )
+            }
         }
     }
 

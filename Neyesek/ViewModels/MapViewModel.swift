@@ -147,6 +147,8 @@ final class MapViewModel: ObservableObject {
                 placeId: favorite.placeId
             )
             
+            print("FAVORITE OPEN STATUS RESULT:", isOpen as Any)
+            
             if let isOpen {
                 favoriteStatusText = isOpen ? "Açık" : "Kapalı"
                 favoriteStatusColor = isOpen ? .systemGreen : .systemRed
@@ -155,12 +157,21 @@ final class MapViewModel: ObservableObject {
                 favoriteStatusColor = .systemGray
             }
         } catch {
-            if RequestLimiter.shared.isLimitReached {
+            print("FAVORITE OPEN STATUS ERROR:", error)
+
+            if let networkError = error as? NetworkError {
+                print("NETWORK ERROR:", networkError)
+            }
+
+            if let networkError = error as? NetworkError,
+               case .statusCode(429) = networkError {
+                favoriteStatusText = "Limit doldu"
+            } else if RequestLimiter.shared.isLimitReached {
                 favoriteStatusText = "Limit doldu"
             } else {
                 favoriteStatusText = "Bilinmiyor"
             }
-            
+
             favoriteStatusColor = .systemGray
         }
     }

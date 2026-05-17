@@ -8,7 +8,7 @@
 import Foundation
 
 final class RequestLimiter {
-
+    
     static let shared = RequestLimiter()
 
     private let dailyLimit = 10

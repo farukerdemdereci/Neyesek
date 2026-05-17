@@ -9,23 +9,28 @@ import Foundation
 import CoreLocation
 
 final class PlaceService: PlaceServiceProtocol {
-    private let googleService: GooglePlacesService
 
-    init(googleService: GooglePlacesService) {
+    private let googleService: SupabasePlacesService
+
+    init(googleService: SupabasePlacesService) {
         self.googleService = googleService
     }
-    
+
     var isAPIKeyMissing: Bool {
-        googleService.isAPIKeyMissing
+        false
     }
     
     func fetchPlaces(
         userLocation: UserLocation,
         filter: PlaceFilter
     ) async throws -> [Place] {
+
+        print("PLACE SERVICE CALLED")
+        
         let dtos = try await googleService.fetchPlaces(
-            userLocation: userLocation,
-            filter: filter
+            lat: userLocation.latitude,
+            lng: userLocation.longitude,
+            category: filter.category
         )
 
         return dtos.map { mapToPlace($0, filter: filter) }
@@ -34,16 +39,7 @@ final class PlaceService: PlaceServiceProtocol {
     func fetchFavoritePlaceOpenStatus(
         placeId: String
     ) async throws -> Bool? {
-        if let cachedStatus = PlaceDetailsCache.shared.get(placeID: placeId) {
-            return cachedStatus
-        }
-
-        let details = try await googleService.fetchPlaceDetails(placeId: placeId)
-        let isOpen = details.openingHours?.openNow
-
-        PlaceDetailsCache.shared.save(placeID: placeId, isOpen: isOpen)
-
-        return isOpen
+        throw NetworkError.statusCode(429)
     }
 
     private func mapToPlace(_ dto: PlacesDTO, filter: PlaceFilter) -> Place {

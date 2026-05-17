@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 final class PlaceAnnotation: NSObject, MKAnnotation {
-
+    
     let place: Place
     let isFavorite: Bool
 

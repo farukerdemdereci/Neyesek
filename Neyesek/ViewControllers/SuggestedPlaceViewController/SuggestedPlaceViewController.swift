@@ -89,7 +89,7 @@ final class SuggestedPlaceViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "shuffle"), for: .normal)
         button.tintColor = .appTextColor
-        button.backgroundColor = .appSecondary
+        button.backgroundColor = .clear
         return button
     }()
 
@@ -98,7 +98,7 @@ final class SuggestedPlaceViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Kapat", for: .normal)
         button.setTitleColor(.appTextColor, for: .normal)
-        button.backgroundColor = .appSecondary
+        button.backgroundColor = .clear
         button.layer.borderWidth = 1.2
         button.layer.borderColor = UIColor.appTextColor.cgColor
         button.layer.cornerRadius = 28

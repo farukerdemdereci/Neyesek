@@ -46,7 +46,7 @@ final class MapViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 32
         view.clipsToBounds = true
-        view.backgroundColor = .white
+        view.backgroundColor = .appBackground
         return view
     }()
 
@@ -75,7 +75,7 @@ final class MapViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .medium)
         button.setPreferredSymbolConfiguration(config, forImageIn: .normal)
         button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.tintColor = .appTextColor
+        button.tintColor = .systemRed
         return button
     }()
 
@@ -325,7 +325,7 @@ private extension MapViewController {
             navigationButton.leadingAnchor.constraint(equalTo: bottomCardView.leadingAnchor, constant: 24),
             navigationButton.trailingAnchor.constraint(equalTo: bottomCardView.trailingAnchor, constant: -24),
             navigationButton.bottomAnchor.constraint(equalTo: bottomCardView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            navigationButton.heightAnchor.constraint(equalToConstant: 56),
+            navigationButton.heightAnchor.constraint(equalToConstant: 60),
 
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -390,7 +390,7 @@ private extension MapViewController {
 
         addToFavoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
         addToFavoriteButton.setPreferredSymbolConfiguration(config, forImageIn: .normal)
-        addToFavoriteButton.tintColor = isSelectedPlaceFavorite ? .appAccent : .appTextColor
+        addToFavoriteButton.tintColor = isSelectedPlaceFavorite ? .systemRed : .appTextColor
     }
 
     func refreshSelectedPlaceFavoriteState() {
@@ -462,7 +462,27 @@ private extension MapViewController {
 
         case .error(let error):
             hideLoading()
-            showAlert(title: "Hata", message: error.localizedDescription)
+
+            if let networkError = error as? NetworkError {
+                switch networkError {
+                case .noInternet:
+                    showAlert(
+                        title: "İnternet Bağlantısı Yok",
+                        message: "Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
+                    )
+
+                default:
+                    showAlert(
+                        title: "Hata",
+                        message: error.localizedDescription
+                    )
+                }
+            } else {
+                showAlert(
+                    title: "Hata",
+                    message: error.localizedDescription
+                )
+            }
         }
     }
 }
@@ -600,10 +620,20 @@ private extension MapViewController {
             locationManager.startUpdatingLocation()
 
         case .denied, .restricted:
-            showAlert(
+            let alert = UIAlertController(
                 title: "Konum İzni Kapalı",
-                message: "Yakındaki mekanları gösterebilmek için Ayarlar’dan konum izni vermelisiniz."
+                message: "Yakındaki mekanları gösterebilmek için Ayarlar’dan konum izni vermelisiniz.",
+                preferredStyle: .alert
             )
+
+            alert.addAction(UIAlertAction(title: "İptal", style: .cancel))
+
+            alert.addAction(UIAlertAction(title: "Ayarlar’a Git", style: .default) { _ in
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                UIApplication.shared.open(url)
+            })
+
+            present(alert, animated: true)
 
         @unknown default:
             break
@@ -634,8 +664,12 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
             annotationView.annotation = annotation
             annotationView.canShowCallout = false
-            annotationView.markerTintColor = .systemRed
+            annotationView.markerTintColor = .appAccent
             annotationView.glyphImage = UIImage(systemName: "heart.fill")
+            
+            annotationView.displayPriority = .required
+            annotationView.collisionMode = .none
+            annotationView.clusteringIdentifier = nil
 
             return annotationView
         }
@@ -653,9 +687,12 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
         annotationView.annotation = annotation
         annotationView.canShowCallout = false
+        annotationView.displayPriority = .required
+        annotationView.collisionMode = .none
+        annotationView.clusteringIdentifier = nil
 
         if placeAnnotation.isFavorite {
-            annotationView.markerTintColor = .systemRed
+            annotationView.markerTintColor = .appAccent
             annotationView.glyphImage = UIImage(systemName: "heart.fill")
         } else {
             annotationView.markerTintColor = .appAccent
@@ -695,11 +732,10 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                     self.placeStatusLabel.text = self.mapVM.favoriteStatusText
                     self.placeStatusLabel.textColor = self.mapVM.favoriteStatusColor
 
-                    if self.mapVM.isRequestLimitReached,
-                       self.mapVM.favoriteStatusText == "Limit doldu" {
+                    if self.mapVM.favoriteStatusText == "Limit doldu" {
                         self.showAlert(
-                            title: "Günlük Hak Doldu",
-                            message: "Günlük hakkınız bittiği için açık/kapalı durumu gösterilememektedir."
+                            title: "Günlük Hakkınız Doldu",
+                            message: "Bugünlük hakkınızı doldurduğunuz için açık/kapalı durumu gösterilememektedir."
                         )
                     }
                 }

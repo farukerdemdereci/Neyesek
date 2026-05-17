@@ -16,14 +16,19 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard
             let urlString = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,
             let url = URL(string: urlString),
-            let key = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_KEY") as? String,
-            !key.isEmpty
+            let key = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_KEY") as? String
         else {
             fatalError("Supabase config missing")
         }
         let client = SupabaseClient(
             supabaseURL: url,
-            supabaseKey: key
+            supabaseKey: key,
+            options: .init(
+                auth: .init(
+                    autoRefreshToken: true,
+                    emitLocalSessionAsInitialSession: true
+                )
+            )
         )
         return SupabaseManager(client: client)
     }()
@@ -40,6 +45,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window.rootViewController = makeRoot()
         window.makeKeyAndVisible()
+        
+        Task {
+            let isValid = await manager.refreshSessionIfNeeded()
+
+            await MainActor.run {
+                if isValid {
+                    self.resetToMainApp()
+                } else {
+                    self.resetToLogin()
+                }
+            }
+        }
     }
 
     private func makeRoot() -> UIViewController {
@@ -86,7 +103,7 @@ extension SceneDelegate {
     private func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
 
-        let googleService = GooglePlacesService()
+        let googleService = SupabasePlacesService(client: manager.client)
         let placeService = PlaceService(googleService: googleService)
 
         let mapVM = MapViewModel(
@@ -145,7 +162,7 @@ extension SceneDelegate {
     private func setupTabBarAppearance(_ tabBar: UITabBarController) {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .appBackground
 
         appearance.stackedLayoutAppearance.normal.iconColor = .secondaryLabel
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = [

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 final class LoginViewController: UIViewController {
 
@@ -53,7 +54,7 @@ final class LoginViewController: UIViewController {
         config.imagePlacement = .leading
         config.imagePadding = 10
         config.baseBackgroundColor = .appTextColor
-        config.baseForegroundColor = .white
+        config.baseForegroundColor = .appSecondary
         config.background.cornerRadius = 28
 
         var title = AttributedString("Apple ile Devam Et")
@@ -72,7 +73,7 @@ final class LoginViewController: UIViewController {
             .withRenderingMode(.alwaysOriginal)
         config.imagePlacement = .leading
         config.imagePadding = 10
-        config.baseBackgroundColor = .white
+        config.baseBackgroundColor = .clear
         config.baseForegroundColor = .appTextColor
         config.background.strokeColor = UIColor.appTextColor
         config.background.strokeWidth = 1.2
@@ -132,7 +133,7 @@ final class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .appBackground
 
         setupUI()
         setupActions()
@@ -208,7 +209,18 @@ private extension LoginViewController {
 
     @objc
     func appleTapped() {
-        showAlert(title: "Yakında", message: "Apple ile giriş yakında eklenecek.")
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+
+        request.requestedScopes = [.fullName, .email]
+
+        let controller = ASAuthorizationController(
+            authorizationRequests: [request]
+        )
+
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
     }
 }
 
@@ -250,5 +262,62 @@ private extension UIImage {
         return renderer.image { _ in
             self.draw(in: CGRect(origin: .zero, size: size))
         }
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
+
+        guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+              let tokenData = credential.identityToken,
+              let idToken = String(data: tokenData, encoding: .utf8)
+        else {
+            showAlert(title: "Hata", message: "Apple token alınamadı.")
+            return
+        }
+
+        Task {
+            do {
+                try await vm.signInWithApple(idToken: idToken)
+
+                await MainActor.run {
+                    if let scene = self.view.window?.windowScene,
+                       let sceneDelegate = scene.delegate as? SceneDelegate {
+                        sceneDelegate.resetToMainApp()
+                    }
+                }
+
+            } catch {
+                await MainActor.run {
+                    self.showAlert(
+                        title: "Apple Giriş Hatası",
+                        message: error.localizedDescription
+                    )
+                }
+            }
+        }
+    }
+
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithError error: Error
+    ) {
+        showAlert(
+            title: "Apple Giriş Hatası",
+            message: error.localizedDescription
+        )
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+
+    func presentationAnchor(
+        for controller: ASAuthorizationController
+    ) -> ASPresentationAnchor {
+        view.window!
     }
 }

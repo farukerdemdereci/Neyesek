@@ -42,7 +42,7 @@ final class FilterViewController: UIViewController {
     private let contentContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         view.layer.cornerRadius = 32
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.clipsToBounds = true
@@ -149,7 +149,7 @@ final class FilterViewController: UIViewController {
         button.setTitle("Mekan Öner", for: .normal)
         button.setTitleColor(.appTextColor, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = .white
+        button.backgroundColor = .clear
         button.layer.borderWidth = 1.2
         button.layer.borderColor = UIColor.appTextColor.cgColor
         button.layer.cornerRadius = 28
@@ -369,11 +369,16 @@ private extension FilterViewController {
             return
         }
         
+        guard mapVM.currentUserLocation != nil else {
+            showLocationPermissionAlert()
+            return
+        }
+        
         let filter = filterVM.makeFilter()
 
         if mapVM.isRequestLimitReached {
             showAlert(
-                title: "Günlük Hak Doldu",
+                title: "Günlük Hakkınız Doldu",
                 message: "Bugünlük arama hakkınız doldu. Yarın tekrar deneyebilirsiniz."
             )
             return
@@ -390,10 +395,14 @@ private extension FilterViewController {
                 hideLoading()
                 self.applyButton.isEnabled = true
                 self.applyButton.alpha = 1
+                
+                if self.handleFetchErrorIfNeeded() {
+                    return
+                }
 
                 if self.mapVM.isRequestLimitReached, self.mapVM.places.isEmpty {
                     self.showAlert(
-                        title: "Günlük Hak Doldu",
+                        title: "Günlük Hakkınız Doldu",
                         message: "Bugünlük arama hakkınız doldu. Yarın tekrar deneyebilirsiniz."
                     )
                     return
@@ -413,25 +422,36 @@ private extension FilterViewController {
             return
         }
         
+        guard mapVM.currentUserLocation != nil else {
+            showLocationPermissionAlert()
+            return
+        }
+        
         let filter = filterVM.makeFilter()
 
         if mapVM.isRequestLimitReached {
             showAlert(
-                title: "Günlük Hak Doldu",
+                title: "Günlük Hakkınız Doldu",
                 message: "Bugünlük öneri hakkınız doldu. Yarın tekrar deneyebilirsiniz."
             )
             return
         }
 
-        Task {
             showLoading()
+        
+        Task {
             let suggestedPlace = await mapVM.suggestPlace(filter: filter)
 
             await MainActor.run {
                 hideLoading()
+                
+                if self.handleFetchErrorIfNeeded() {
+                    return
+                }
+                
                 if mapVM.isRequestLimitReached, suggestedPlace == nil {
                     showAlert(
-                        title: "Günlük Hak Doldu",
+                        title: "Günlük Hakkınız Doldu",
                         message: "Bugünlük öneri hakkınız doldu. Yarın tekrar deneyebilirsiniz."
                     )
                     return
@@ -496,6 +516,61 @@ private extension FilterViewController {
 // MARK: - UI Helpers
 
 private extension FilterViewController {
+
+    func handleFetchErrorIfNeeded() -> Bool {
+        guard case .error(let error) = mapVM.fetchedPlacesState else {
+            return false
+        }
+
+        if let networkError = error as? NetworkError {
+            switch networkError {
+
+            case .noInternet:
+                showAlert(
+                    title: "İnternet Bağlantısı Yok",
+                    message: "Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
+                )
+                return true
+
+            case .statusCode(429):
+                showAlert(
+                    title: "Günlük Hakkınız Doldu",
+                    message: "Bugünlük kullanım hakkınızı doldurdunuz. Yarın tekrar deneyebilirsiniz."
+                )
+                return true
+
+            default:
+                showAlert(
+                    title: "Hata",
+                    message: error.localizedDescription
+                )
+                return true
+            }
+        }
+
+        showAlert(
+            title: "Hata",
+            message: error.localizedDescription
+        )
+        return true
+    }
+    
+    func showLocationPermissionAlert() {
+        let alert = UIAlertController(
+            title: "Konum İzni Gerekli",
+            message: "Yakındaki mekanları gösterebilmek için Ayarlar’dan konum izni vermelisiniz.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "İptal", style: .cancel))
+
+        alert.addAction(UIAlertAction(title: "Ayarlar’a Git", style: .default) { _ in
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(url)
+        })
+
+        present(alert, animated: true)
+    }
     
     static func makeSectionTitle(_ text: String, size: CGFloat, color: UIColor) -> UILabel {
         let label = UILabel()

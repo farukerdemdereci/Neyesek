@@ -25,7 +25,7 @@ final class FilterViewModel: ObservableObject {
         .init(title: "Rastgele", imageName: "category_random", query: "restaurant"),
         .init(title: "Burger", imageName: "category_burger", query: "burger"),
         .init(title: "Pizza", imageName: "category_pizza", query: "pizza"),
-        .init(title: "Döner", imageName: "category_doner", query: "kebab"),
+        .init(title: "Döner", imageName: "category_doner", query: "doner"),
         .init(title: "Kebap", imageName: "category_kebab", query: "kebab"),
         .init(title: "Makarna", imageName: "category_pasta", query: "pasta"),
         .init(title: "Asya", imageName: "category_asian", query: "asian"),

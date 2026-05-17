@@ -21,6 +21,16 @@ final class SupabaseManager {
         let session = try await client.auth.session
         return session.user.id
     }
+    
+    func refreshSessionIfNeeded() async -> Bool {
+        do {
+            _ = try await client.auth.session
+            return true
+        } catch {
+            try? await signOut()
+            return false
+        }
+    }
 }
 
 extension SupabaseManager: AuthServiceProtocol {
@@ -109,10 +119,13 @@ extension SupabaseManager: FavoritePlaceServiceProtocol {
     }
 
     func deleteFavoritePlace(id: UUID) async throws {
+        let userId = try await requireUserId()
+
         try await client
             .from("places")
             .delete()
             .eq("id", value: id)
+            .eq("user_id", value: userId)
             .execute()
     }
 }
