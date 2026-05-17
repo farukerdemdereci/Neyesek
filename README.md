@@ -31,6 +31,8 @@ Example configuration files are provided for demonstration purposes.
 
 ## Architecture
 
+The project follows the MVVM pattern and uses protocol-based service abstractions for better separation of concerns, maintainability, and testability.
+
 ViewController → ViewModel → Service → API
 
 ## Screenshots
