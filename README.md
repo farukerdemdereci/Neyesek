@@ -1,4 +1,4 @@
-Neyesek
+## Neyesek
 
 Neyesek is an iOS application that helps users discover nearby restaurants and cafes based on their location and preferences.
 
@@ -6,7 +6,7 @@ Users can filter places by category, price, rating, and distance, or receive a c
 
 The project is built with UIKit using the MVVM architecture and integrates Google Places API together with Supabase services.
 
-App Store
+## App Store
 
 Download on the App Store:
 
@@ -14,7 +14,7 @@ App Store Link￼
 
 ⸻
 
-Features
+## Features
 
 * Discover nearby restaurants and cafes
 * Category-based filtering
@@ -30,7 +30,7 @@ Features
 
 ⸻
 
-Screenshots
+## Screenshots
 
 <p align="center">
   <img src="screenshots/login.png" width="250">
@@ -44,7 +44,7 @@ Screenshots
 
 ⸻
 
-Technologies
+## Technologies
 
 * Swift
 * UIKit
@@ -57,7 +57,7 @@ Technologies
 
 ⸻
 
-Authentication
+## Authentication
 
 The application supports multiple authentication methods:
 
@@ -69,7 +69,7 @@ Users can also permanently delete their accounts directly from the application s
 
 ⸻
 
-Backend & Security
+## Backend & Security
 
 The application uses Supabase Edge Functions as a backend layer between the iOS client and external APIs.
 
@@ -79,7 +79,7 @@ This repository does not contain real API keys or sensitive credentials.
 
 ⸻
 
-Architecture
+## Architecture
 
 The project follows the MVVM pattern and uses protocol-based service abstractions for better separation of concerns, maintainability, and testability.
 
@@ -89,7 +89,7 @@ ViewController → ViewModel → Service → API
 
 ⸻
 
-Main Components
+## Main Components
 
 Presentation Layer
 
@@ -104,7 +104,7 @@ Service Layer
 * Authentication service
 * Backend communication layer
 
-Backend
+## Backend
 
 * Supabase Authentication
 * Supabase Database
@@ -112,7 +112,7 @@ Backend
 
 ⸻
 
-Future Improvements
+## Future Improvements
 
 * Smarter recommendation algorithms
 * Improved caching system
@@ -122,7 +122,7 @@ Future Improvements
 
 ⸻
 
-Support
+## Support
 
 For support or feedback:
 
