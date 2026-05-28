@@ -12,7 +12,7 @@ Download on the App Store:
 
 https://apps.apple.com/tr/app/neyesek/id6769931264?l=tr
 
-⸻
+
 
 ## Features
 
@@ -28,7 +28,7 @@ https://apps.apple.com/tr/app/neyesek/id6769931264?l=tr
 * Guest Login support
 * Account deletion support
 
-⸻
+
 
 ## Screenshots
 
@@ -42,7 +42,7 @@ https://apps.apple.com/tr/app/neyesek/id6769931264?l=tr
   <img src="screenshots/favorites.png" width="250">
 </p>
 
-⸻
+
 
 ## Technologies
 
@@ -55,7 +55,7 @@ https://apps.apple.com/tr/app/neyesek/id6769931264?l=tr
 * Supabase
 * Supabase Edge Functions
 
-⸻
+
 
 ## Authentication
 
@@ -67,7 +67,7 @@ The application supports multiple authentication methods:
 
 Users can also permanently delete their accounts directly from the application settings screen.
 
-⸻
+
 
 ## Backend & Security
 
@@ -77,7 +77,7 @@ Sensitive API keys are not exposed directly to the client application. Request v
 
 This repository does not contain real API keys or sensitive credentials.
 
-⸻
+
 
 ## Architecture
 
@@ -87,7 +87,7 @@ Application flow:
 
 ViewController → ViewModel → Service → API
 
-⸻
+
 
 ## Main Components
 
@@ -110,7 +110,7 @@ Service Layer
 * Supabase Database
 * Supabase Edge Functions
 
-⸻
+
 
 ## Future Improvements
 
@@ -120,7 +120,7 @@ Service Layer
 * Personalized recommendations
 * Social features
 
-⸻
+
 
 ## Support
 
