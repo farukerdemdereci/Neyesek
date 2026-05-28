@@ -10,7 +10,7 @@ The project is built with UIKit using the MVVM architecture and integrates Googl
 
 Download on the App Store:
 
-App Store Link￼
+https://apps.apple.com/tr/app/neyesek/id6769931264?l=tr
 
 ⸻
 
