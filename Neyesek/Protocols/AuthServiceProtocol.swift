@@ -8,9 +8,16 @@
 import Foundation
 
 protocol AuthServiceProtocol {
-    func signInWithGoogle() async throws
-    
+
     func signInWithApple(idToken: String) async throws
-    
+
+    func signInWithGoogle() async throws
+
+    func signInAnonymously() async throws
+
     func signOut() async throws
+
+    var currentUserEmail: String? { get }
+
+    func deleteAccount() async throws
 }

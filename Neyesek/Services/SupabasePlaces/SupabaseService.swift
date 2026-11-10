@@ -21,10 +21,15 @@ final class SupabaseManager {
         let session = try await client.auth.session
         return session.user.id
     }
-    
+
     func refreshSessionIfNeeded() async -> Bool {
         do {
-            _ = try await client.auth.session
+            let session = try await client.auth.session
+
+            print("RESTORED USER:", session.user.id)
+            print("IS ANONYMOUS:", session.user.isAnonymous)
+            print("EMAIL:", session.user.email ?? "email yok")
+
             return true
         } catch {
             try? await signOut()
@@ -34,6 +39,19 @@ final class SupabaseManager {
 }
 
 extension SupabaseManager: AuthServiceProtocol {
+
+    func signInWithApple(idToken: String) async throws {
+        try await client.auth.signInWithIdToken(
+            credentials: .init(
+                provider: .apple,
+                idToken: idToken
+            )
+        )
+    }
+
+    var currentUserEmail: String? {
+        client.auth.currentUser?.email
+    }
 
     func signInWithGoogle() async throws {
         guard let clientID = Bundle.main.object(forInfoDictionaryKey: "GIDClientID") as? String else {
@@ -65,38 +83,37 @@ extension SupabaseManager: AuthServiceProtocol {
         )
     }
 
-    func signInWithApple(idToken: String) async throws {
-        try await client.auth.signInWithIdToken(
-            credentials: .init(
-                provider: .apple,
-                idToken: idToken
-            )
-        )
+    func signInAnonymously() async throws {
+        try await client.auth.signInAnonymously()
     }
 
     func signOut() async throws {
         GIDSignIn.sharedInstance.signOut()
         try await client.auth.signOut()
     }
+
+    func deleteAccount() async throws {
+        try await client.functions.invoke("delete-account")
+    }
 }
 
 extension SupabaseManager: FavoritePlaceServiceProtocol {
     func fetchFavoritePlaces() async throws -> [FavoritePlace] {
-        
+
         let userId = try await requireUserId()
- 
+
         let favoritePlaces: [FavoritePlace] = try await client
             .from("places")
             .select()
             .eq("user_id", value: userId)
             .execute()
             .value
-        
+
         return favoritePlaces
     }
-    
+
     func saveFavoritePlace(name: String, category: String, latitude: Double, longitude: Double, placeId: String, price: Int?, rating: Double?, ratingCount: Int?) async throws {
-        
+
         let userId = try await requireUserId()
 
         let favoritePlace = FavoritePlace(

@@ -88,9 +88,34 @@ final class LoginViewController: UIViewController {
         return button
     }()
 
+    private let guestButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Misafir Olarak Devam Et", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        button.backgroundColor = .clear
+        return button
+    }()
+
+    private let orLabel: UILabel = {
+        let label = UILabel()
+        label.text = "veya"
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+
+    private let infoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "info.circle")
+        imageView.tintColor = .secondaryLabel
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     private let infoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Favorilerinizi kaydetmek için giriş yapmalısınız."
+        label.text = "Misafir olarak devam ederseniz favorileriniz hesabınıza kalıcı olarak bağlanmaz."
         label.font = .systemFont(ofSize: 13, weight: .medium)
         label.textColor = .secondaryLabel
         label.textAlignment = .center
@@ -103,7 +128,9 @@ final class LoginViewController: UIViewController {
             titleLabel,
             appleButton,
             googleButton,
-            infoLabel
+            orLabel,
+            guestButton,
+            infoLabel,
         ])
 
         stack.axis = .vertical
@@ -113,7 +140,9 @@ final class LoginViewController: UIViewController {
 
         stack.setCustomSpacing(40, after: titleLabel)
         stack.setCustomSpacing(20, after: appleButton)
-        stack.setCustomSpacing(30, after: googleButton)
+        stack.setCustomSpacing(32, after: googleButton)
+        stack.setCustomSpacing(20, after: orLabel)
+        stack.setCustomSpacing(30, after: guestButton)
 
         return stack
     }()
@@ -153,6 +182,7 @@ private extension LoginViewController {
     func setupHierarchy() {
         view.addSubview(cardView)
         view.addSubview(logoImageView)
+        view.addSubview(infoImageView)
         cardView.addSubview(mainStack)
     }
 
@@ -177,19 +207,41 @@ private extension LoginViewController {
             appleButton.widthAnchor.constraint(equalTo: mainStack.widthAnchor),
 
             googleButton.heightAnchor.constraint(equalToConstant: 60),
-            googleButton.widthAnchor.constraint(equalTo: mainStack.widthAnchor)
+            googleButton.widthAnchor.constraint(equalTo: mainStack.widthAnchor),
+
+            infoImageView.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -4),
+            infoImageView.topAnchor.constraint(equalTo: infoLabel.topAnchor, constant: 1),
+            infoImageView.widthAnchor.constraint(equalToConstant: 13),
+            infoImageView.heightAnchor.constraint(equalToConstant: 13)
+
         ])
     }
 
     func setupActions() {
-        googleButton.addTarget(self, action: #selector(googleTapped), for: .touchUpInside)
         appleButton.addTarget(self, action: #selector(appleTapped), for: .touchUpInside)
+        googleButton.addTarget(self, action: #selector(googleTapped), for: .touchUpInside)
+        guestButton.addTarget(self, action: #selector(guestTapped), for: .touchUpInside)
     }
 }
 
 // MARK: - Actions
 
 private extension LoginViewController {
+    @objc
+    func appleTapped() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+
+        request.requestedScopes = [.fullName, .email]
+
+        let controller = ASAuthorizationController(
+            authorizationRequests: [request]
+        )
+
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
+    }
 
     @objc
     func googleTapped() {
@@ -208,19 +260,19 @@ private extension LoginViewController {
     }
 
     @objc
-    func appleTapped() {
-        let provider = ASAuthorizationAppleIDProvider()
-        let request = provider.createRequest()
+    func guestTapped() {
+        guestButton.isEnabled = false
+        showLoading()
 
-        request.requestedScopes = [.fullName, .email]
+        Task {
+            await vm.signInAnonymously()
 
-        let controller = ASAuthorizationController(
-            authorizationRequests: [request]
-        )
-
-        controller.delegate = self
-        controller.presentationContextProvider = self
-        controller.performRequests()
+            await MainActor.run {
+                self.guestButton.isEnabled = true
+                self.hideLoading()
+                self.render(self.vm.state)
+            }
+        }
     }
 }
 

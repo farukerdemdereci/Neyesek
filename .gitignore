@@ -11,3 +11,13 @@ build/
 Secrets.xcconfig
 Secrets.plist
 GoogleService-Info.plist
+# macOS
+.DS_Store
+
+# Supabase CLI temporary files
+NeyesekBackend/supabase/.temp/
+
+# Local secrets
+.env
+.env.*
+!.env.example

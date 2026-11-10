@@ -9,18 +9,18 @@ import Foundation
 
 @MainActor
 final class FilterViewModel: ObservableObject {
-    
+
     struct FilterCategory: Equatable {
         let title: String
         let imageName: String
         let query: String
     }
-    
+
     @Published private(set) var selectedCategory: FilterCategory
     @Published private(set) var selectedRadiusIndex: Int = 1
     @Published private(set) var selectedRatingIndex: Int = 0
     @Published private(set) var selectedPriceIndex: Int = 0
-    
+
     let categories: [FilterCategory] = [
         .init(title: "Rastgele", imageName: "category_random", query: "restaurant"),
         .init(title: "Burger", imageName: "category_burger", query: "burger"),
@@ -36,28 +36,28 @@ final class FilterViewModel: ObservableObject {
         .init(title: "Tatlı", imageName: "category_dessert", query: "dessert"),
         .init(title: "Kahve", imageName: "category_coffee", query: "coffee"),
         .init(title: "Çay", imageName: "category_tea", query: "tea"),
-        .init(title: "Alkol", imageName: "category_alcohol", query: "bar")
+        .init(title: "Alkol", imageName: "category_alcohol", query: "alcohol")
     ]
-    
+
     init() {
         selectedCategory = categories[0]
     }
-    
+
     func selectCategory(at index: Int) {
         guard categories.indices.contains(index) else { return }
         selectedCategory = categories[index]
     }
-    
+
     func selectRadius(at index: Int) {
         guard [0, 1, 2, 3].contains(index) else { return }
         selectedRadiusIndex = index
     }
-    
+
     func selectRating(at index: Int) {
         guard [0, 1, 2, 3, 4].contains(index) else { return }
         selectedRatingIndex = index
     }
-    
+
     func selectPrice(at index: Int) {
         guard [0, 1, 2, 3, 4].contains(index) else { return }
         selectedPriceIndex = index
@@ -81,6 +81,9 @@ final class FilterViewModel: ObservableObject {
             displayCategory = selected.title
         }
 
+        print("SELECTED RADIUS INDEX:", selectedRadiusIndex)
+        print("RADIUS VALUE:", radiusValue(for: selectedRadiusIndex))
+
         return PlaceFilter(
             category: categoryQuery,
             radius: radiusValue(for: selectedRadiusIndex),
@@ -91,13 +94,13 @@ final class FilterViewModel: ObservableObject {
             displayCategory: displayCategory
         )
     }
-    
+
     private func radiusValue(for index: Int) -> Int {
         let values = [300, 600, 1000, 2000]
         guard values.indices.contains(index) else { return 600 }
         return values[index]
     }
-    
+
     private func ratingValue(for index: Int) -> Double? {
         switch index {
         case 1: return 3.0
@@ -107,7 +110,7 @@ final class FilterViewModel: ObservableObject {
         default: return nil
         }
     }
-    
+
     private func priceValue(for index: Int) -> Int? {
         switch index {
         case 1: return 1
@@ -117,20 +120,20 @@ final class FilterViewModel: ObservableObject {
         default: return nil
         }
     }
-    
+
     func isCategorySelected(at index: Int) -> Bool {
         guard categories.indices.contains(index) else { return false }
         return selectedCategory == categories[index]
     }
-    
+
     func isRadiusSelected(at index: Int) -> Bool {
         selectedRadiusIndex == index
     }
-    
+
     func isRatingSelected(at index: Int) -> Bool {
         selectedRatingIndex == index
     }
-    
+
     func isPriceSelected(at index: Int) -> Bool {
         selectedPriceIndex == index
     }

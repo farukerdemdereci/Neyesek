@@ -140,10 +140,10 @@ final class MapViewController: UIViewController {
 
     // MARK: - Floating Buttons
 
-    private let logoutButton: UIButton = {
+    private let settingsButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "door.left.hand.open"), for: .normal)
+        button.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .black
         button.backgroundColor = .white
         button.layer.cornerRadius = 21
@@ -224,7 +224,7 @@ private extension MapViewController {
         addToFavoriteButton.addTarget(self, action: #selector(addToFavoriteTapped), for: .touchUpInside)
         navigationButton.addTarget(self, action: #selector(navigationTapped), for: .touchUpInside)
         recenterButton.addTarget(self, action: #selector(recenterTapped), for: .touchUpInside)
-        logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
+        settingsButton.addTarget(self, action: #selector(settingsTapped), for: .touchUpInside)
     }
 
     func setupMapView() {
@@ -270,7 +270,7 @@ private extension MapViewController {
             bottomCardView.addSubview($0)
         }
 
-        view.addSubview(logoutButton)
+        view.addSubview(settingsButton)
         view.addSubview(recenterButton)
 
         bottomCardBottomConstraint = bottomCardShadowWrapper.bottomAnchor.constraint(
@@ -327,13 +327,13 @@ private extension MapViewController {
             navigationButton.bottomAnchor.constraint(equalTo: bottomCardView.safeAreaLayoutGuide.bottomAnchor, constant: -12),
             navigationButton.heightAnchor.constraint(equalToConstant: 60),
 
-            logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            logoutButton.widthAnchor.constraint(equalToConstant: 42),
-            logoutButton.heightAnchor.constraint(equalToConstant: 42),
+            settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            settingsButton.widthAnchor.constraint(equalToConstant: 42),
+            settingsButton.heightAnchor.constraint(equalToConstant: 42),
 
             recenterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            recenterButton.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 16),
+            recenterButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 16),
             recenterButton.widthAnchor.constraint(equalToConstant: 42),
             recenterButton.heightAnchor.constraint(equalToConstant: 42)
         ])
@@ -552,29 +552,22 @@ private extension MapViewController {
     }
 
     @objc
-    func logoutTapped() {
-        let alert = UIAlertController(
-            title: "Çıkış Yap",
-            message: "Hesabınızdan çıkmak istiyor musunuz?",
-            preferredStyle: .alert
-        )
+    func settingsTapped() {
+        let vc = SettingsViewController(vm: authVM)
 
-        alert.addAction(UIAlertAction(title: "İptal", style: .cancel))
+        if let sheet = vc.sheetPresentationController {
 
-        alert.addAction(UIAlertAction(title: "Çıkış Yap", style: .destructive) { _ in
-            Task {
-                await self.authVM.signOut()
-
-                await MainActor.run {
-                    if let scene = self.view.window?.windowScene,
-                       let sceneDelegate = scene.delegate as? SceneDelegate {
-                        sceneDelegate.resetToLogin()
-                    }
+            sheet.detents = [
+                .custom { _ in
+                    350
                 }
-            }
-        })
+            ]
 
-        present(alert, animated: true)
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 46
+        }
+
+        present(vc, animated: true)
     }
 
     @objc
@@ -666,7 +659,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             annotationView.canShowCallout = false
             annotationView.markerTintColor = .appAccent
             annotationView.glyphImage = UIImage(systemName: "heart.fill")
-            
+
             annotationView.displayPriority = .required
             annotationView.collisionMode = .none
             annotationView.clusteringIdentifier = nil

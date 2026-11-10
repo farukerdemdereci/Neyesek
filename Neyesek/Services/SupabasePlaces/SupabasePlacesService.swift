@@ -30,16 +30,31 @@ final class SupabasePlacesService {
         var queryItems: [URLQueryItem] = [
             URLQueryItem(name: "lat", value: "\(lat)"),
             URLQueryItem(name: "lng", value: "\(lng)"),
-            URLQueryItem(name: "radius", value: "\(radius)"),
-            URLQueryItem(name: "type", value: placeType(for: category))
+            URLQueryItem(name: "radius", value: "\(radius)")
         ]
 
-        if let category {
-            queryItems.append(URLQueryItem(name: "keyword", value: keyword(for: category)))
+        let type = placeType(for: category)
+
+        if !type.isEmpty {
+            queryItems.append(
+                URLQueryItem(name: "type", value: type)
+            )
         }
-        
+
+        if let category {
+            let keyword = keyword(for: category)
+
+            if !keyword.isEmpty {
+                queryItems.append(
+                    URLQueryItem(name: "keyword", value: keyword)
+                )
+            }
+        }
+
         if let price {
-            queryItems.append(URLQueryItem(name: "maxprice", value: "\(price)"))
+            queryItems.append(
+                URLQueryItem(name: "maxprice", value: "\(price)")
+            )
         }
 
         components.queryItems = queryItems
@@ -53,8 +68,13 @@ final class SupabasePlacesService {
         var request = URLRequest(url: url)
 
         do {
+
             let session = try await client.auth.session
-            request.setValue("Bearer \(session.accessToken)", forHTTPHeaderField: "Authorization")
+
+            request.setValue(
+                "Bearer \(session.accessToken)",
+                forHTTPHeaderField: "Authorization"
+            )
 
             let (data, response) = try await URLSession.shared.data(for: request)
 
@@ -71,23 +91,34 @@ final class SupabasePlacesService {
             }
 
             do {
-                let decoded = try JSONDecoder().decode(GooglePlacesResponse.self, from: data)
+
+                let decoded = try JSONDecoder().decode(
+                    GooglePlacesResponse.self,
+                    from: data
+                )
+
                 return decoded.results
+
             } catch {
                 throw NetworkError.decoding(error)
             }
 
         } catch let error as NetworkError {
+
             throw error
 
         } catch {
+
             let nsError = error as NSError
 
             if nsError.domain == NSURLErrorDomain {
+
                 switch nsError.code {
+
                 case NSURLErrorNotConnectedToInternet,
                      NSURLErrorNetworkConnectionLost,
                      NSURLErrorTimedOut:
+
                     throw NetworkError.noInternet
 
                 default:
@@ -100,43 +131,66 @@ final class SupabasePlacesService {
     }
 
     private func placeType(for category: String?) -> String {
+
         switch category {
-        case "bar": return "bar"
-        case "coffee", "tea": return "cafe"
-        default: return "restaurant"
+
+        case "bar", "alcohol":
+            return "bar"
+
+        case "coffee", "tea":
+            return "cafe"
+
+        default:
+            return ""
         }
     }
 
     private func keyword(for category: String) -> String {
+
         switch category {
+
         case "burger":
             return "burger hamburger fast food"
+
         case "pizza":
             return "pizza italian"
+
         case "doner":
             return "döner doner kebab dürüm"
+
         case "kebab":
             return "kebap kebab ocakbaşı grill"
+
         case "pasta":
             return "pasta makarna italian"
+
         case "asian":
             return "asian sushi chinese japanese korean thai"
+
         case "steak":
             return "steak meat grill butcher"
+
         case "chicken":
             return "chicken tavuk fried chicken"
+
         case "fish":
-            return "fish seafood balık"
+            return "balıkçı balik fish seafood"
+
         case "salad":
             return "salad healthy vegan"
+
         case "dessert":
             return "dessert bakery pastry waffle ice cream"
+
         case "coffee":
             return "coffee cafe espresso"
+
         case "tea":
             return "tea cafe çay"
-        case "bar":
-            return "bar pub cocktail beer"
+
+        case "alcohol":
+            return "bar pub alcohol beer wine cocktail rakı bira şarap"
+
         default:
             return ""
         }

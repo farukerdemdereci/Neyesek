@@ -104,20 +104,24 @@ final class FavoritesViewController: UIViewController {
     }()
 
     private let searchContainer: UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .systemUltraThinMaterial)
+        let blur = UIBlurEffect(style: .systemThinMaterial)
+
         let view = UIVisualEffectView(effect: blur)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 18
+
+        view.layer.cornerRadius = 26
         view.clipsToBounds = true
+
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.white.withAlphaComponent(0.18).cgColor
+        view.layer.borderColor = UIColor.white.withAlphaComponent(0.25).cgColor
+
         return view
     }()
 
     private let searchOverlayView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.15)
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.08)
         view.isUserInteractionEnabled = false
         return view
     }()

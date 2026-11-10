@@ -43,9 +43,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
 
-        window.rootViewController = makeRoot()
+        let loadingVC = UIViewController()
+        loadingVC.view.backgroundColor = .appBackground
+
+        window.rootViewController = loadingVC
         window.makeKeyAndVisible()
-        
+
         Task {
             let isValid = await manager.refreshSessionIfNeeded()
 
@@ -56,14 +59,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     self.resetToLogin()
                 }
             }
-        }
-    }
-
-    private func makeRoot() -> UIViewController {
-        if manager.client.auth.currentUser != nil {
-            return createTabBar()
-        } else {
-            return createLoginVC()
         }
     }
 }
@@ -120,14 +115,14 @@ extension SceneDelegate {
         )
 
         let filterVM = FilterViewModel()
-        
+
         let mapVC = MapViewController(mapVM: mapVM, authVM: authVM)
         mapVC.tabBarItem = UITabBarItem(
             title: "Neyesek",
             image: UIImage(systemName: "map.fill"),
             tag: 0
         )
-        
+
         let filterVC = FilterViewController(mapVM: mapVM, filterVM: filterVM
         )
         filterVC.tabBarItem = UITabBarItem(
